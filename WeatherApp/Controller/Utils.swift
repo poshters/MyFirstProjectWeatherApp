@@ -11,6 +11,7 @@ class DateUtils{
                             let dateFormatter = DateFormatter()
                             dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
 
+            
                             print("\(dateFormatter.string(from:date)) min temp \(a.min) max temp \(a.max) " )
 
 
