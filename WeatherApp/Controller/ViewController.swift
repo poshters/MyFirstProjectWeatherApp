@@ -16,13 +16,13 @@ class ViewController: UIViewController {
     let identifier = "myCell"
     let weatherData = ApiWeather().getWeatherForecastByCity(city: "Ivano-Frankivsk")
     let dbManager = DBManager().getWeatherForecastByCity(cityName: "Ivano-Frankivsk")
-   
+   let vc = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print (Realm.Configuration.defaultConfiguration)
-        label.text = dbManager.city?.name
+        label.text = dbManager.city!.name
 
         
     }
@@ -43,7 +43,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
         cell.textLabel?.text = "\(dateFormatter.string(from:date)) | \(number.desc) | \(round(number.min))/\(round(number.max))"
-        cell.textLabel?.center
+       
         return cell
     }
 }
