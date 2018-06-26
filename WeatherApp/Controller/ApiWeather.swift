@@ -27,12 +27,8 @@ class ApiWeather{
             guard let data = data else {return}
             guard  error == nil else {return}
             let jsonDecoder = JSONDecoder()
-      
-            
             do {
                 responseModel = try jsonDecoder.decode(WeatherForecast.self, from: data)
-            
-                
                 semaphore.signal()
                 }catch {
             print(error)
