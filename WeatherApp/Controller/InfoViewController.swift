@@ -9,6 +9,7 @@
 import UIKit
 
 class InfoViewController: UIViewController {
+    
     let wetherTableView = WeatherTableViewController()
     var selectedRow = Weather()
     
@@ -24,9 +25,9 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setImageBackground()
         setInfoWether()
-        
-    
+      
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -52,6 +53,15 @@ class InfoViewController: UIViewController {
         windLabel.text = "Wind: \(Int(selectedRow.speed)) km/h"
         iconImage.image = UIImage(named: selectedRow.icon)
 }
+    
+    func setImageBackground() {
+        let backgroundImage = UIImageView (frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage (named: "1")
+       
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        self.view.insertSubview (backgroundImage, at: 0)
+        
+    }
 }
 // MARK: - Navigation
 
