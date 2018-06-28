@@ -13,7 +13,7 @@ import RealmSwift
 class ApiWeather{
     let openWeatherMapBaseURL = "https://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=metric&cnt=14"
     let openWeatherMapAPIKey = "695ec8629eeaf925d9d4e9139ac14a69"
-   
+    
     func getWeatherForecastByCity(city: String) -> WeatherForecast  {
         let semaphore = DispatchSemaphore(value: 0)
         var responseModel : WeatherForecast?
@@ -30,15 +30,15 @@ class ApiWeather{
             do {
                 responseModel = try jsonDecoder.decode(WeatherForecast.self, from: data)
                 semaphore.signal()
-                }catch {
-            print(error)
-        }
-    }
+            }catch {
+                print(error)
+            }
+            }
             
-    .resume()
+            .resume()
         semaphore.wait()
         return responseModel!
-}
     }
-    
+}
+
 
