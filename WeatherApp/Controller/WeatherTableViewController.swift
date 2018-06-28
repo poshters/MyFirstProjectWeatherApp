@@ -9,13 +9,16 @@
 import UIKit
 
 class WeatherTableViewController: UITableViewController {
-    let weatherData = ApiWeather().getWeatherForecastByCity(city: "Ivano-Frankivsk") 
-    let getWeatherDB = DBManager.sharedInstance.getWeatherForecastByCity(cityName: "Ivano-Frankivsk")
+  var getWeatherDB = WeatherForecast()
     
     
-        
+   
+   
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        getWeatherDB =  getDBApi()
         let backgraundImage = UIImage(named: "1")
         let imageView = UIImageView(image: backgraundImage)
         self.tableView.backgroundView = imageView
@@ -71,17 +74,25 @@ class WeatherTableViewController: UITableViewController {
         cell?.backgroundColor = .clear
             return cell!
         } else {
+            
+          
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SecondTableViewCell
             cell?.secondDate.text = "\(dateFormatter.string(from:date))"
             cell?.secondDesc.text = "\(cellGetWeatherDB.desc)"
             cell?.secondMax.text = "\(Int(cellGetWeatherDB.max))"
-            cell?.secondMin.text = "\(Int(cellGetWeatherDB.min))"
+            cell?.secondMin.text = "\( Int(cellGetWeatherDB.min))"
             cell?.secondImage.image = UIImage(named: "\(cellGetWeatherDB.icon)")
             cell?.backgroundColor = UIColor(white: 1, alpha: 0.7)
        return cell!
         }
         
     }
+func getDBApi() -> WeatherForecast {
+    let getApiWeather = ApiWeather().getWeatherForecastByCity(city:"Ivano-Frankivsk" )
+    DBManager.sharedInstance.addDB(object:getApiWeather)
+    getWeatherDB = DBManager.sharedInstance.getWeatherForecastByCity(cityName: (getApiWeather.city?.name)!)
+    return getWeatherDB
+     }
     
 
 }

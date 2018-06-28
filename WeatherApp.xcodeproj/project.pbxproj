@@ -137,9 +137,9 @@
 				04546CC520CBDB50003D41C4 /* Utils.swift */,
 				042EFB0220DBB472003B7A10 /* ApiWeather.swift */,
 				042A89A420E1155A0090861A /* DBManager.swift */,
-				A60DB067E51EC70450B1DCF2 /* Frameworks */,
 				04DA2E3D20E3DD1E0017E2E5 /* TableViewCell.swift */,
 				04DA2E3F20E3DEA30017E2E5 /* SecondTableViewCell.swift */,
+				A60DB067E51EC70450B1DCF2 /* Frameworks */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
