@@ -42,13 +42,15 @@ class WeatherTableViewController: UITableViewController {
         let cellGetWeatherDB = getWeatherDB.list[indexPath.row]
         let date = Date(timeIntervalSince1970: TimeInterval(cellGetWeatherDB.dt))
         let dateFormatter = DateFormatter()
+        let dayOfWeek = DateFormatter()
+        dayOfWeek.dateFormat = "EEEE"
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
         
         if indexPath.row == 0 {
-            cell?.date.text = "\(dateFormatter.string(from:date))"
+            cell?.date.text = "\(dayOfWeek.string(from:date))\n\(dateFormatter.string(from:date))"
             cell?.desc.text = "\(cellGetWeatherDB.desc)"
-            cell?.maxTemp.text = "\((Int(cellGetWeatherDB.max)))"
-            cell?.minTemp.text = "\(Int(cellGetWeatherDB.min))"
+            cell?.maxTemp.text = "\(Int(cellGetWeatherDB.max))ºC"
+            cell?.minTemp.text = "\(Int(cellGetWeatherDB.min))ºC"
             cell?.imageWeather.image = UIImage(named: "\(cellGetWeatherDB.icon)")
             cell?.backgroundColor = .clear
             return cell!
@@ -56,10 +58,10 @@ class WeatherTableViewController: UITableViewController {
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? SecondTableViewCell
-            cell?.secondDate.text = "\(dateFormatter.string(from:date))"
+            cell?.secondDate.text = "\(dayOfWeek.string(from:date)), \(dateFormatter.string(from:date))"
             cell?.secondDesc.text = "\(cellGetWeatherDB.desc)"
-            cell?.secondMax.text = "\(Int(cellGetWeatherDB.max))"
-            cell?.secondMin.text = "\( Int(cellGetWeatherDB.min))"
+            cell?.secondMax.text = "\(Int(cellGetWeatherDB.max))ºC"
+            cell?.secondMin.text = "\( Int(cellGetWeatherDB.min))ºC"
             cell?.secondImage.image = UIImage(named: "\(cellGetWeatherDB.icon)")
             cell?.backgroundColor = UIColor(white: 1, alpha: 0.7)
             return cell!

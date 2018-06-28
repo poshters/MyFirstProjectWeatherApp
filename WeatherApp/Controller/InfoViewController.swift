@@ -9,8 +9,7 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-  
-   let wetherTableView = WeatherTableViewController()
+    let wetherTableView = WeatherTableViewController()
     var selectedRow = Weather()
     
     @IBOutlet weak var dayLabel: UILabel!
@@ -21,40 +20,43 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setInfoWether()
+        
+    
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
     
-
     
-    // MARK: - Navigation
+    
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        setInfoWether()
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
- 
     func setInfoWether() {
         let date = Date(timeIntervalSince1970: TimeInterval(selectedRow.dt))
         let dateFormatter = DateFormatter()
+        let dayOfWeek = DateFormatter()
+        dayOfWeek.dateFormat = "EEEE"
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
-        dayLabel.text = "\(dateFormatter.string(from:date))"
-        maxTempLabel.text = "\(selectedRow.max)"
-        minTempLabel.text = "\(selectedRow.min)"
+        
+        dayLabel.text = "\(dayOfWeek.string(from:date))\n\(dateFormatter.string(from:date))"
+        maxTempLabel.text = "\(Int(selectedRow.max))ºC"
+        minTempLabel.text = "\(Int(selectedRow.min))ºC"
         descriptionLabel.text = "\(selectedRow.desc)"
-        humidityLabel.text = "\(selectedRow.humidity)"
-        pressureLabel.text = "\(selectedRow.pressure)"
-        windLabel.text = "\(selectedRow.speed)"
+        humidityLabel.text = "Humidity: \(selectedRow.humidity) %"
+        pressureLabel.text = "Pressure: \(Int(selectedRow.pressure)) hPa"
+        windLabel.text = "Wind: \(Int(selectedRow.speed)) km/h"
         iconImage.image = UIImage(named: selectedRow.icon)
-    }
 }
+}
+// MARK: - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+// Get the new view controller using segue.destinationViewController.
+// Pass the selected object to the new view controller.
