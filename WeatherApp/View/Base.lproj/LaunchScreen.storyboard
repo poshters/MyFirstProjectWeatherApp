@@ -18,19 +18,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="WeatherApp" translatesAutoresizingMaskIntoConstraints="NO" id="wiP-GM-Sug">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="WeatherApp" translatesAutoresizingMaskIntoConstraints="NO" id="wiP-GM-Sug">
                                 <rect key="frame" x="67" y="213" width="240" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="1v8-1U-yqB"/>
+                                    <constraint firstAttribute="height" constant="240" id="poS-EQ-YYx"/>
+                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WeatherApp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znn-o3-ZVN">
-                                <rect key="frame" x="67" y="465" width="240" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WeatherApp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Znn-o3-ZVN">
+                                <rect key="frame" x="67" y="465" width="240" height="50.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50.5" id="7F9-R4-5Mo"/>
+                                    <constraint firstAttribute="width" constant="240" id="bpx-He-oTh"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                 <color key="textColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="wiP-GM-Sug" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="67" id="Aab-lz-pZK"/>
+                            <constraint firstItem="wiP-GM-Sug" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="193" id="RB4-VZ-8cS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Znn-o3-ZVN" secondAttribute="bottom" constant="151.5" id="YGD-fH-hYj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wiP-GM-Sug" secondAttribute="trailing" constant="68" id="dDu-dp-35q"/>
+                            <constraint firstItem="Znn-o3-ZVN" firstAttribute="top" secondItem="wiP-GM-Sug" secondAttribute="bottom" constant="12" id="jpI-s5-KWQ"/>
+                            <constraint firstItem="Znn-o3-ZVN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="67" id="lVU-uF-FUq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Znn-o3-ZVN" secondAttribute="trailing" constant="68" id="t1b-gQ-Tzo"/>
+                            <constraint firstItem="Znn-o3-ZVN" firstAttribute="top" secondItem="wiP-GM-Sug" secondAttribute="bottom" constant="12" id="zkb-kw-YOe"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                 </viewController>

@@ -9,7 +9,6 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-    
     let wetherTableView = WeatherTableViewController()
     var selectedRow = Weather()
     
@@ -62,11 +61,21 @@ class InfoViewController: UIViewController {
         self.view.insertSubview (backgroundImage, at: 0)
         
     }
+    
+    @IBAction func mapButtonActon(_ sender: UIButton) {
+        func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "mapVC" {
+//                (segue.destination as! MapViewController).coord = wetherTableView.getWeatherDB.city!.coord!
+                
+            }
+    }
 }
 // MARK: - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
 
 // Get the new view controller using segue.destinationViewController.
 // Pass the selected object to the new view controller.
+
+}

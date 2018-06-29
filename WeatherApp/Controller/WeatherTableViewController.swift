@@ -11,7 +11,6 @@ import UIKit
 class WeatherTableViewController: UITableViewController {
     var getWeatherDB = WeatherForecast()
    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         getWeatherDB =  getDBApi()

@@ -169,14 +169,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="humidity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KHx-7F-xY2">
-                                <rect key="frame" x="20" y="385" width="367" height="44"/>
+                                <rect key="frame" x="20" y="385" width="229" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="pressure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="77j-Hk-voQ">
-                                <rect key="frame" x="20" y="437" width="367" height="44"/>
+                                <rect key="frame" x="20" y="437" width="229" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
@@ -190,7 +190,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="wind" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zz7-OD-7nF">
-                                <rect key="frame" x="20" y="489" width="367" height="44"/>
+                                <rect key="frame" x="20" y="489" width="229" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
@@ -203,8 +203,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mUs-AG-C1j">
+                                <rect key="frame" x="270" y="404" width="117" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" backgroundImage="map">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="mapButtonActon:" destination="e3h-8s-B8h" eventType="touchUpInside" id="TB7-eB-Arf"/>
+                                    <segue destination="AMn-Ae-lh7" kind="show" identifier="mapVC" id="PVI-7z-yKq"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="qW4-tj-IAj"/>
                     </view>
                     <navigationItem key="navigationItem" id="ikd-6F-fdS"/>
@@ -216,12 +228,54 @@
                         <outlet property="maxTempLabel" destination="2uh-Zw-6uB" id="lIb-Yw-ZYT"/>
                         <outlet property="minTempLabel" destination="KQp-3w-u8v" id="fEH-lG-kxj"/>
                         <outlet property="pressureLabel" destination="77j-Hk-voQ" id="E1S-HN-fmt"/>
+                        <outlet property="searchDisplayController" destination="Eqv-wI-7Gb" id="d5c-0L-GOU"/>
                         <outlet property="windLabel" destination="zz7-OD-7nF" id="uKu-mt-VEH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uSG-iq-wzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="Eqv-wI-7Gb">
+                    <connections>
+                        <outlet property="delegate" destination="e3h-8s-B8h" id="kld-9r-p6W"/>
+                        <outlet property="searchContentsController" destination="e3h-8s-B8h" id="1Dq-wp-Nsu"/>
+                        <outlet property="searchResultsDataSource" destination="e3h-8s-B8h" id="pc0-ue-VXP"/>
+                        <outlet property="searchResultsDelegate" destination="e3h-8s-B8h" id="tbF-du-Icq"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="773.91304347826087" y="-55.434782608695656"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="wtV-tP-f3n">
+            <objects>
+                <viewController id="AMn-Ae-lh7" customClass="MapViewController" customModule="WeatherApp" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lAo-Ch-0HP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2tf-Yx-BX7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JM3-l7-Hfm" firstAttribute="bottom" secondItem="2tf-Yx-BX7" secondAttribute="bottom" id="0aE-S8-dnw"/>
+                            <constraint firstItem="2tf-Yx-BX7" firstAttribute="leading" secondItem="JM3-l7-Hfm" secondAttribute="leading" id="1SO-2x-Y2f"/>
+                            <constraint firstItem="JM3-l7-Hfm" firstAttribute="trailing" secondItem="2tf-Yx-BX7" secondAttribute="trailing" id="DJP-G9-Bpm"/>
+                            <constraint firstItem="2tf-Yx-BX7" firstAttribute="top" secondItem="lAo-Ch-0HP" secondAttribute="top" id="abP-Ln-LdE"/>
+                            <constraint firstItem="JM3-l7-Hfm" firstAttribute="trailing" secondItem="2tf-Yx-BX7" secondAttribute="trailing" id="mMy-cb-6g7"/>
+                            <constraint firstItem="JM3-l7-Hfm" firstAttribute="bottom" secondItem="2tf-Yx-BX7" secondAttribute="bottom" id="ngR-Vc-LUK"/>
+                            <constraint firstItem="2tf-Yx-BX7" firstAttribute="top" secondItem="lAo-Ch-0HP" secondAttribute="top" id="uD8-p4-i6i"/>
+                            <constraint firstItem="2tf-Yx-BX7" firstAttribute="leading" secondItem="JM3-l7-Hfm" secondAttribute="leading" id="y4I-0f-zl4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="JM3-l7-Hfm"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapCoord" destination="2tf-Yx-BX7" id="lwo-oc-1nW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t3d-9s-y07" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1466.6666666666667" y="-59.510869565217398"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Z73-3L-EC8">
@@ -242,4 +296,7 @@
             <point key="canvasLocation" x="-932" y="136"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="map" width="100" height="91"/>
+    </resources>
 </document>
