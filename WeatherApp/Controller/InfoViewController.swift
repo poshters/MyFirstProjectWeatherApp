@@ -1,16 +1,11 @@
-//
-//  ViewController.swift
-//  WeatherApp
-//
-//  Created by mac on 6/28/18.
-//  Copyright © 2018 mac. All rights reserved.
-//
+
 
 import UIKit
 
 class InfoViewController: UIViewController {
     let wetherTableView = WeatherTableViewController()
     var selectedRow = Weather()
+    let myScrolView = UIScrollView()
     
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
@@ -24,6 +19,7 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.addSubview(myScrolView)
         setImageBackground()
         setInfoWether()
       
@@ -61,21 +57,17 @@ class InfoViewController: UIViewController {
         self.view.insertSubview (backgroundImage, at: 0)
         
     }
-    
+    // MARK: - Navigation
     @IBAction func mapButtonActon(_ sender: UIButton) {
-        func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if segue.identifier == "mapVC" {
-//                (segue.destination as! MapViewController).coord = wetherTableView.getWeatherDB.city!.coord!
-                
-            }
+//        func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+////            if segue.identifier == "mapVC" {
+//////                (segue.destination as! MapViewController).coord = wetherTableView.getWeatherDB.city!.coord!
+          }
     }
-}
-// MARK: - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 
 
-// Get the new view controller using segue.destinationViewController.
-// Pass the selected object to the new view controller.
 
-}
+
+
+
+

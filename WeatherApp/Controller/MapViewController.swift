@@ -1,10 +1,3 @@
-//
-//  MapViewController.swift
-//  WeatherApp
-//
-//  Created by mac on 6/29/18.
-//  Copyright © 2018 mac. All rights reserved.
-//
 
 import UIKit
 import MapKit
@@ -18,10 +11,13 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         coord = (DBManager().getWeatherForecastByCity(cityName: "Ivano-Frankivsk").city?.coord!)!
         super.viewDidLoad()
+        
         let initLocation = CLLocationCoordinate2D(latitude: coord.lat, longitude: coord.lon)
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegion(center: initLocation, span: span)
         mapCoord.setRegion(region, animated: true)
+        
+    
        
         // Do any additional setup after loading the view.
     }

@@ -1,10 +1,4 @@
-//
-//  WeatherTableViewController.swift
-//  WeatherApp
-//
-//  Created by mac on 6/27/18.
-//  Copyright © 2018 mac. All rights reserved.
-//
+
 
 import UIKit
 
@@ -31,7 +25,7 @@ class WeatherTableViewController: UITableViewController {
         if indexPath.row == 0 {
             return 160.0
         } else {
-            return 74.0
+            return 84.0
         }
     }
   
