@@ -15,7 +15,6 @@ class WeatherTableViewController: UITableViewController {
     
     // MARK: - Table view data source
  
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return getWeatherDB.list.count
@@ -23,9 +22,9 @@ class WeatherTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 160.0
+            return 200.0
         } else {
-            return 84.0
+            return 74.0
         }
     }
   
@@ -90,6 +89,7 @@ class WeatherTableViewController: UITableViewController {
         self.tableView.backgroundView = imageView
         imageView.contentMode = .scaleAspectFill
     }
+    
     
     
     

@@ -1,10 +1,4 @@
-//
-//  SecondTableViewCell.swift
-//  WeatherApp
-//
-//  Created by mac on 6/27/18.
-//  Copyright © 2018 mac. All rights reserved.
-//
+
 
 import UIKit
 

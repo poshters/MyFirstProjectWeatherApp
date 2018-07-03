@@ -1,10 +1,4 @@
-//
-//  ApiWeather.swift
-//  WeatherApp
-//
-//  Created by mac on 6/21/18.
-//  Copyright © 2018 mac. All rights reserved.
-//
+
 
 import Foundation
 import RealmSwift
@@ -22,7 +16,7 @@ class ApiWeather{
         
         let weatherRequestURL = URL(string: "\(openWeatherMapBaseURL)&APPID=\(openWeatherMapAPIKey)&q=\(city)")!
         session.dataTask(with: weatherRequestURL) { (data, response, error) in
-            
+        
             guard response != nil else {return}
             guard let data = data else {return}
             guard  error == nil else {return}

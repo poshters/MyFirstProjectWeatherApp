@@ -6,7 +6,6 @@ class MapViewController: UIViewController {
     let weatherTableView = WeatherTableViewController()
     var coord = Coord()
 
-    
     @IBOutlet weak var mapCoord: MKMapView!
     override func viewDidLoad() {
         coord = (DBManager().getWeatherForecastByCity(cityName: "Ivano-Frankivsk").city?.coord!)!

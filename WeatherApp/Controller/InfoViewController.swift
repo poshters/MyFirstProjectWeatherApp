@@ -5,7 +5,8 @@ import UIKit
 class InfoViewController: UIViewController {
     let wetherTableView = WeatherTableViewController()
     var selectedRow = Weather()
-    let myScrolView = UIScrollView()
+   
+    
     
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
@@ -19,6 +20,7 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
         self.view.addSubview(myScrolView)
         setImageBackground()
         setInfoWether()
@@ -26,7 +28,7 @@ class InfoViewController: UIViewController {
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     
     
     
@@ -57,14 +59,8 @@ class InfoViewController: UIViewController {
         self.view.insertSubview (backgroundImage, at: 0)
         
     }
-    // MARK: - Navigation
-    @IBAction func mapButtonActon(_ sender: UIButton) {
-//        func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-////            if segue.identifier == "mapVC" {
-//////                (segue.destination as! MapViewController).coord = wetherTableView.getWeatherDB.city!.coord!
-          }
-    }
 
+}
 
 
 
