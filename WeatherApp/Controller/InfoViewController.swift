@@ -21,7 +21,7 @@ class InfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        self.view.addSubview(myScrolView)
+      
         setImageBackground()
         setInfoWether()
       
