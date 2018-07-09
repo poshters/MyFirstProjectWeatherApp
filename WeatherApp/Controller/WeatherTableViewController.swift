@@ -1,16 +1,48 @@
 
 
 import UIKit
+import RealmSwift
+
 
 class WeatherTableViewController: UITableViewController {
     var getWeatherDB = WeatherForecast()
+    let refresh = UIRefreshControl()
+    let tableViewController = UITableViewController()
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        getWeatherDB =  getDBApi()
         setImageBackground()
         self.title = getWeatherDB.city?.name
-        
+        self.refresh.addTarget(self, action:#selector(refreshData), for: .valueChanged)
+        self.view.addSubview(refresh)
+        let results =  getDBApi()
+        if results.isEmpty {
+            // TODO show dialog no internet conection
+            alertClose()
+        } else{
+            getWeatherDB = results.first!
+            
+        }
+    }
+    @objc func refreshData() {
+        let results =  getDBApi()
+        if results.isEmpty {
+        // TODO show dialog no internet conection
+           alertClose()
+        } else{
+            getWeatherDB = results.first!
+            tableView.reloadData()
+        }
+        refresh.endRefreshing()
+    }
+    
+    func alertClose() {
+        let alert = UIAlertController(title: "Error", message: "no connection to the internet", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "try again", style: .cancel) { (alertAction) in
+            self.refreshData()
+        }
+        alert.addAction(alertAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
@@ -77,11 +109,16 @@ class WeatherTableViewController: UITableViewController {
             (segue.destination as! InfoViewController).selectedRow = selectedRoW
         }
     }
-    func getDBApi() -> WeatherForecast {
-        let getApiWeather = ApiWeather().getWeatherForecastByCity(city:"Ivano-Frankivsk" )
-        DBManager.sharedInstance.addDB(object:getApiWeather)
-        getWeatherDB = DBManager.sharedInstance.getWeatherForecastByCity(cityName: (getApiWeather.city?.name)!)
-        return getWeatherDB
+    func getDBApi() -> Results<WeatherForecast> {
+        let city = "Ivano-Frankivsk"
+        if ReachabilityManager.shared.isNetworkAvaiLable {
+            let getApiWeather = ApiWeather().getWeatherForecastByCity(city:city)
+            DBManager.sharedInstance.addDB(object:getApiWeather)
+        }
+        
+        let results = DBManager.sharedInstance.getWeatherForecastByCity(cityName: city)
+        
+        return results
     }
     func setImageBackground() {
         let backgraundImage = UIImage(named: "1")

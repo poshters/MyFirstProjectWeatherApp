@@ -8,7 +8,10 @@ class MapViewController: UIViewController {
 
     @IBOutlet weak var mapCoord: MKMapView!
     override func viewDidLoad() {
-        coord = (DBManager().getWeatherForecastByCity(cityName: "Ivano-Frankivsk").city?.coord!)!
+        let results = DBManager().getWeatherForecastByCity(cityName: "Ivano-Frankivsk")
+        if !results.isEmpty {
+            coord = results.first!.city!.coord!
+        }
         super.viewDidLoad()
         
         let initLocation = CLLocationCoordinate2D(latitude: coord.lat, longitude: coord.lon)

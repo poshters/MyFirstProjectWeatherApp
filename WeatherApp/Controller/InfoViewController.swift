@@ -16,7 +16,7 @@ class InfoViewController: UIViewController {
     @IBOutlet weak var pressureLabel: UILabel!
     @IBOutlet weak var windLabel: UILabel!
     @IBOutlet weak var iconImage: UIImageView!
-    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,9 @@ class InfoViewController: UIViewController {
       
         setImageBackground()
         setInfoWether()
-      
     }
+   
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         

@@ -7,6 +7,7 @@ target 'WeatherApp' do
 
   # Pods for WeatherApp
     pod ‘RealmSwift’
+    pod ‘ReachabilitySwift’,‘~> 3’
   target 'WeatherAppTests' do
     inherit! :search_paths
     # Pods for testing

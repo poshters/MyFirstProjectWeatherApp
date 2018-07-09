@@ -22,8 +22,8 @@ class DBManager {
             realm.add(object, update: true)
         }
     }
-    func getWeatherForecastByCity(cityName: String) -> WeatherForecast {
-        let result : WeatherForecast = realm.objects(WeatherForecast.self).filter("city.name == %@", cityName).first!
+    func getWeatherForecastByCity(cityName: String) -> Results<WeatherForecast> {
+        let result = realm.objects(WeatherForecast.self).filter("city.name == %@", cityName)
         return result
     }
     
