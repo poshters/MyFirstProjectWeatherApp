@@ -1,4 +1,3 @@
-
 import UIKit
 import MapKit
 
@@ -6,11 +5,12 @@ class MapViewController: UIViewController {
     let weatherTableView = WeatherTableViewController()
     var coord = Coord()
 
-    @IBOutlet weak var mapCoord: MKMapView!
+    @IBOutlet weak private var mapCoord: MKMapView!
+    
     override func viewDidLoad() {
-        let results = DBManager().getWeatherForecastByCity(cityName: "Ivano-Frankivsk")
-        if !results.isEmpty {
-            coord = results.first!.city!.coord!
+        let results = DBManager.getWeatherForecastByCity(cityName: "Ivano-Frankivsk")
+        if !(results?.isEmpty ?? true) {
+            coord = (results?.first!.city!.coord!)!
         }
         super.viewDidLoad()
         
@@ -18,9 +18,6 @@ class MapViewController: UIViewController {
         let span = MKCoordinateSpanMake(0.05, 0.05)
         let region = MKCoordinateRegion(center: initLocation, span: span)
         mapCoord.setRegion(region, animated: true)
-        
-    
-       
         // Do any additional setup after loading the view.
     }
 
@@ -28,7 +25,6 @@ class MapViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
     /*
     // MARK: - Navigation

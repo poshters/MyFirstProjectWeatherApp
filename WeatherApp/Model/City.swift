@@ -1,14 +1,10 @@
-
 import Foundation
-struct Coord : Codable {
-    let lat : Double?
-    let lon : Double?
+struct Coord: Codable {
+    let lat: Double?
+    let lon: Double?
 }
-struct City : Codable {
+struct City: Codable {
 	
-	let name : String?
-	let coord : Coord?
-	
-
-
+	let name: String?
+	let coord: Coord?
 }

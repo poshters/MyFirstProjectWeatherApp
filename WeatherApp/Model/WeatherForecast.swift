@@ -4,14 +4,13 @@ import Foundation
 import RealmSwift
 import Realm
 
-
-class WeatherForecast : Object, Decodable {
-    @objc dynamic var ID = UUID().uuidString
-    @objc dynamic var city : City?
+class WeatherForecast: Object, Decodable {
+    @objc dynamic var realmId = UUID().uuidString
+    @objc dynamic var city: City?
     var list = List<Weather>()
     
-    override static func primaryKey()-> String? {
-        return "ID"
+    override static func primaryKey() -> String? {
+        return "realmId"
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -46,5 +45,3 @@ class WeatherForecast : Object, Decodable {
         super.init(realm: realm, schema: schema)
     }
 }
-    
-

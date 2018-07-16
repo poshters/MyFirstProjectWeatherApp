@@ -1,7 +1,6 @@
-
 import Foundation
 
-class WeatherGetter{
+class WeatherGetter {
 
     func getWeather() {
         let responseModel = ApiWeather().getWeatherForecastByCity(city: "Ivano-Frankivsk")
@@ -11,12 +10,8 @@ class WeatherGetter{
                             let dateFormatter = DateFormatter()
                             dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
 
-                            print("\(dateFormatter.string(from:date)) min temp \(a.min) max temp \(a.max) " )
-
+                            print("\(dateFormatter.string(from: date)) min temp \(a.min) max temp \(a.max) " )
 
     }
     }
 }
-
-
-
