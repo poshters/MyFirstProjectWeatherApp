@@ -1,7 +1,5 @@
-
 import Foundation
-import RealmSwift
-
+import CoreLocation
 class ApiWeather {
     let openWeatherMapBaseURL = "https://api.openweathermap.org/data/2.5/forecast/daily?mode=json&units=metric&cnt=14"
     let openWeatherMapAPIKey = "695ec8629eeaf925d9d4e9139ac14a69"

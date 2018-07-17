@@ -125,7 +125,6 @@
 		042EFB0420DBBD48003B7A10 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				04E66F0020F35F83007A0F88 /* ReachabilityManager.swift */,
 				042EFB0820DBBD7F003B7A10 /* WeatherForecast.swift */,
 				042EFB0E20DBE67F003B7A10 /* City.swift */,
 				042EFB0920DBBD82003B7A10 /* Weather.swift */,
@@ -185,6 +184,7 @@
 		04546C9620CBC974003D41C4 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				04E66F0020F35F83007A0F88 /* ReachabilityManager.swift */,
 				042EFB0420DBBD48003B7A10 /* Model */,
 				042EFB1020DBEBA0003B7A10 /* View */,
 				042EFB1120DBEBA7003B7A10 /* Controller */,
@@ -384,7 +384,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		048D60CC20FB91B000234700 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -392,7 +392,7 @@
 			name = Swiftlint;
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"error: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};

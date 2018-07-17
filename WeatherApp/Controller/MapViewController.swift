@@ -9,9 +9,10 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         let results = DBManager.getWeatherForecastByCity(cityName: "Ivano-Frankivsk")
-        if !(results?.isEmpty ?? true) {
-            coord = (results?.first!.city!.coord!)!
-        }
+        if results?.isEmpty != nil {
+            coord = (results?.first?.city?.coord)!
+            
+         }
         super.viewDidLoad()
         
         let initLocation = CLLocationCoordinate2D(latitude: coord.lat, longitude: coord.lon)

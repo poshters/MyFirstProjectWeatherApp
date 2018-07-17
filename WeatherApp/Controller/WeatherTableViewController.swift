@@ -1,7 +1,4 @@
 import UIKit
-import RealmSwift
-import Reachability
-
 class WeatherTableViewController: UITableViewController {
     var getWeatherDB = WeatherForecast()
     let refresh = UIRefreshControl()
@@ -12,28 +9,27 @@ class WeatherTableViewController: UITableViewController {
         self.title = getWeatherDB.city?.name
         self.refresh.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         self.view.addSubview(refresh)
+        checkData()
+    }
+
+    @objc func refreshData() {
+            checkData()
+            tableView.reloadData()
+        
+        refresh.endRefreshing()
+    }
+    func checkData() {
         let results = getDBApi()
-        if results.isEmpty {
+        if (results?.isEmpty)! {
             alertClose()
         } else {
-            getWeatherDB = results.first!
+            getWeatherDB = (results?.first)!
         }
-    }
-    @objc func refreshData() {
-        let results = getDBApi()
-        if results.isEmpty {
-           alertClose()
-        } else {
-            getWeatherDB = (results.first)!
-            
-            tableView.reloadData()
-        }
-        refresh.endRefreshing()
     }
     
     func alertClose() {
-        let alert = UIAlertController(title: "Error", message: "no connection to the internet", preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "try again", style: .cancel) { (_) in
+        let alert = UIAlertController(title: "Error", message: "No connection to the internet", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: "Try again", style: .cancel) { (_) in
             self.refreshData()
         }
         alert.addAction(alertAction)
@@ -41,7 +37,7 @@ class WeatherTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
- 
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return getWeatherDB.list.count
@@ -54,7 +50,7 @@ class WeatherTableViewController: UITableViewController {
             return 74.0
         }
     }
-  
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellGetWeatherDB = getWeatherDB.list[indexPath.row]
@@ -65,7 +61,7 @@ class WeatherTableViewController: UITableViewController {
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
         
         if indexPath.row == 0, let cell = tableView.dequeueReusableCell(withIdentifier: "firstCell",
-                                                                for: indexPath) as? TableViewCell {
+                                                                        for: indexPath) as? TableViewCell {
             
             cell.dateWeather.text = "\(dayOfWeek.string(from: date))\n\(dateFormatter.string(from: date))"
             cell.desc.text = "\(cellGetWeatherDB.desc)"
@@ -78,16 +74,17 @@ class WeatherTableViewController: UITableViewController {
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",
                                                            for: indexPath)
             as? SecondTableViewCell {
-                cell.secondDate.text = "\(dayOfWeek.string(from: date)), \(dateFormatter.string(from: date))"
-                cell.secondDesc.text = "\(cellGetWeatherDB.desc)"
-                cell.secondMax.text = "\(Int(cellGetWeatherDB.max))ºC"
-                cell.secondMin.text = "\( Int(cellGetWeatherDB.min))ºC"
-                cell.secondImage.image = UIImage(named: "\(cellGetWeatherDB.icon)")
-                cell.backgroundColor = UIColor(white: 1, alpha: 0.7)
-                return cell
-            }
+            cell.secondDate.text = "\(dayOfWeek.string(from: date)), \(dateFormatter.string(from: date))"
+            cell.secondDesc.text = "\(cellGetWeatherDB.desc)"
+            cell.secondMax.text = "\(Int(cellGetWeatherDB.max))ºC"
+            cell.secondMin.text = "\( Int(cellGetWeatherDB.min))ºC"
+            cell.secondImage.image = UIImage(named: "\(cellGetWeatherDB.icon)")
+            cell.backgroundColor = UIColor(white: 1, alpha: 0.7)
+            return cell
+        }
         return UITableViewCell()
     }
+    
     var selectedRoW = Weather()
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -106,17 +103,21 @@ class WeatherTableViewController: UITableViewController {
             (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
         }
     }
-    func getDBApi() -> Results<WeatherForecast> {
+    func getDBApi() -> Results<WeatherForecast>? {
         let city = "Ivano-Frankivsk"
-        if ReachabilityManager.shared.isNetworkAvaiLable {
+        if Reachability.isConnectedToNetwork() {
             let getApiWeather = ApiWeather().getWeatherForecastByCity(city: city)
             DBManager.addDB(object: getApiWeather)
         }
-        
         let results = DBManager.getWeatherForecastByCity(cityName: city)
         
-        return results!
+        return results
+        
     }
+    @IBAction func findeCityButton(_ sender: Any) {
+        
+    }
+    
     func setImageBackground() {
         let backgraundImage = UIImage(named: "1")
         let imageView = UIImageView(image: backgraundImage)

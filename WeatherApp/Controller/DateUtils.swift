@@ -4,7 +4,7 @@ class WeatherGetter {
 
     func getWeather() {
         let responseModel = ApiWeather().getWeatherForecastByCity(city: "Ivano-Frankivsk")
-        print("Погода в \(responseModel.city!.name)")
+        print("Погода в \(responseModel.city?.name)")
         for a in responseModel.list {
                             let date = Date(timeIntervalSince1970: TimeInterval(a.dt))
                             let dateFormatter = DateFormatter()
