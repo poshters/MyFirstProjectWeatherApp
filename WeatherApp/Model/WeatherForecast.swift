@@ -4,7 +4,7 @@ import Realm
 
 class WeatherForecast: Object, Decodable {
     @objc dynamic var realmId = UUID().uuidString
-    @objc dynamic var city: City?
+   @objc dynamic var city: City?
     var list = List<Weather>()
     
     override static func primaryKey() -> String? {

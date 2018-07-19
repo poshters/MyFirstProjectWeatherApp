@@ -10,10 +10,12 @@ import Foundation
 import RealmSwift
 
 class DBManager {
+   
     @discardableResult
     class func addDB(object: WeatherForecast) -> Bool {
         do {
-            let realm = try Realm()
+            
+             let realm = try Realm()
             try realm.write {
             realm.deleteAll()
             realm.add(object, update: true)
@@ -24,11 +26,14 @@ class DBManager {
         }
     }
     
-    class func getWeatherForecastByCity(cityName: String) -> Results<WeatherForecast>? {
+    class func  getWeatherForecastByCity(lat: Double, long: Double) -> Results<WeatherForecast>? {
+
         do {
             let realm = try Realm()
-            let result = realm.objects(WeatherForecast.self).filter("city.name == %@", cityName)
+              let result = realm.objects(WeatherForecast.self)
             return result
+//                .filter( "city.name  == %@")
+           
         } catch {
             return nil
         }

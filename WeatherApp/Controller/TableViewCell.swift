@@ -1,6 +1,8 @@
 import UIKit
 
 class TableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet  weak var dateWeather: UILabel! 
     @IBOutlet  weak var maxTemp: UILabel!
     @IBOutlet  weak var minTemp: UILabel!

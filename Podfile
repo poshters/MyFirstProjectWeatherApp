@@ -4,11 +4,13 @@
 target 'WeatherApp' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-
   # Pods for WeatherApp
     pod ‘RealmSwift’
-    pod ‘ReachabilitySwift’,‘~> 3’
-  target 'WeatherAppTests' do
+    pod ‘ReachabilitySwift’,‘~> 3’ 
+   pod 'GooglePlaces'
+   pod 'GooglePlacePicker'
+   pod 'GoogleMaps'  
+ target 'WeatherAppTests' do
     inherit! :search_paths
     # Pods for testing
   end

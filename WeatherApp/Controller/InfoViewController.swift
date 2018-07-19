@@ -33,8 +33,8 @@ class InfoViewController: UIViewController {
         dayOfWeek.dateFormat = "EEEE"
         dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
         dayLabel.text = "\(dayOfWeek.string(from: date))\n\(dateFormatter.string(from: date))"
-        maxTempLabel.text = "\(Int(selectedRow.max))ºC"
-        minTempLabel.text = "\(Int(selectedRow.min))ºC"
+        maxTempLabel.text = String(format: "%.0f", selectedRow.max - 273.15)
+        minTempLabel.text = String(format: "%.0f", selectedRow.min - 273.15)
         descriptionLabel.text = "\(selectedRow.desc)"
         humidityLabel.text = "Humidity: \(selectedRow.humidity) %"
         pressureLabel.text = "Pressure: \(Int(selectedRow.pressure)) hPa"
