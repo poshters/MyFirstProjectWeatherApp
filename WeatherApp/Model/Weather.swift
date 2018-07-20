@@ -56,7 +56,7 @@ class Weather: Object, Decodable {
     
     convenience required init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
-    let dt = try values.decode(Int.self, forKey: .dateWeather)
+    let dateWeather = try values.decode(Int.self, forKey: .dateWeather)
     let temp = try values.decode(Temp.self, forKey: .temp)
     let min = temp.min
     let max = temp.max
@@ -69,7 +69,7 @@ class Weather: Object, Decodable {
     let speed = try values.decode(Double.self, forKey: .speed)
     let deg = try values.decode(Double.self, forKey: .deg)
         
-        self.init( desc: desc, icon: icon, dateWeather: dt, pressure: pressure,
+        self.init( desc: desc, icon: icon, dateWeather: dateWeather, pressure: pressure,
                  humidity: humidity, speed: speed, deg: deg, min: min, max: max)
     }
     required init() {

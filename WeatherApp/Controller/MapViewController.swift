@@ -8,11 +8,12 @@ class MapViewController: UIViewController {
     @IBOutlet weak private var mapCoord: MKMapView!
     
     override func viewDidLoad() {
-        let results = DBManager.getWeatherForecastByCity(lat: UserDefaults.standard.double(forKey: "lat"),
-                                                         long: UserDefaults.standard.double(forKey: "long"))
+        let results = DBManager.getWeatherForecastByCity(
+            lat: UserDefaults.standard.double(forKey: "lat"),
+            long: UserDefaults.standard.double(forKey: "long"))
+        
         if results?.isEmpty != nil {
-            coord = (results?.first?.city?.coord)! 
-            
+            coord = (results?.first?.city?.coord)!
          }
         super.viewDidLoad()
         

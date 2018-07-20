@@ -13,7 +13,6 @@ class WeatherTableViewController: UITableViewController {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
-        print("lat \(UserDefaults.standard.double(forKey: "lat")) long \(UserDefaults.standard.double(forKey: "long"))")
         setImageBackground()
         self.refresh.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         self.view.addSubview(refresh)
@@ -28,7 +27,8 @@ class WeatherTableViewController: UITableViewController {
             refresh.endRefreshing()
     }
     func checkData() {
-        let results = getDBApi(lat: UserDefaults.standard.double(forKey: "lat"), long: UserDefaults.standard.double(forKey: "long"))
+        let results = getDBApi(lat: UserDefaults.standard.double(forKey: "lat"),
+                               long: UserDefaults.standard.double(forKey: "long"))
         if results == nil {
             alertClose()
         } else if let resultFirst = (results?.first) {
@@ -90,6 +90,7 @@ class WeatherTableViewController: UITableViewController {
             cell.secondMin.text = String(format: "%.0f", cellGetWeatherDB.min - 273.15)
             cell.secondImage.image = UIImage(named: "\(cellGetWeatherDB.icon)")
             cell.backgroundColor = UIColor(white: 1, alpha: 0.7)
+        
             return cell
         }
         return UITableViewCell()
@@ -160,8 +161,8 @@ extension WeatherTableViewController: GMSAutocompleteViewControllerDelegate {
         print("Place name: \(place.name)")
 //        print("Place address: \(place.formattedAddress)")
 //        print("Place attributions: \(place.attributions)")
-    
-       let findeCity = getDBApi(lat: place.coordinate.latitude, long: place.coordinate.latitude)
+        print("\(place.coordinate.latitude) \(place.coordinate.latitude)")
+       let findeCity = getDBApi(lat: place.coordinate.latitude, long: place.coordinate.longitude)
         let results = findeCity
         if results == nil {
             alertClose()
@@ -175,7 +176,6 @@ extension WeatherTableViewController: GMSAutocompleteViewControllerDelegate {
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        // TODO: handle the error.
         print("Error: ", error.localizedDescription)
     }
     
