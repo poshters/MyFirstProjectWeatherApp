@@ -3,7 +3,6 @@ import Realm
 import RealmSwift
 
 class Weather: Object, Decodable {
-//    @objc dynamic var id: Int = 0
     @objc dynamic var realmId = UUID().uuidString
     @objc dynamic var desc: String = ""
     @objc dynamic var icon: String  = ""
@@ -42,7 +41,6 @@ class Weather: Object, Decodable {
     convenience init (desc: String, icon: String, dateWeather: Int, pressure: Double,
                       humidity: Int, speed: Double, deg: Double, min: Double, max: Double) {
         self.init()
-//        self.id = id
         self.desc = desc
         self.icon = icon
         self.dateWeather = dateWeather
@@ -63,7 +61,6 @@ class Weather: Object, Decodable {
     let pressure = try values.decode(Double.self, forKey: .pressure)
     let humidity = try values.decode(Int.self, forKey: .humidity)
     let temporary = try values.decode([Temporary].self, forKey: .weather)
-//    let id = temporary[0].id
     let desc = temporary[0].desc
     let icon = temporary[0].icon
     let speed = try values.decode(Double.self, forKey: .speed)
@@ -78,22 +75,13 @@ class Weather: Object, Decodable {
 }
 
 class Temporary: Decodable {
-//    @objc dynamic var id : Int = 0
     @objc dynamic var desc: String = ""
     @objc dynamic var icon: String = ""
     
-    enum CodingKeys: String, CodingKey {
-//        case id = "id"
+   private enum CodingKeys: String, CodingKey {
         case desc = "description"
         case icon = "icon"
     }
-//
-//    convenience required init(from decoder: Decoder) throws {
-//        let values = try decoder.container(keyedBy: CodingKeys.self)
-//        let desc = try values.decode(String.self, forKey: .desc)
-//        self.init()
-//
-//    }
     
 }
 class Temp: Decodable {

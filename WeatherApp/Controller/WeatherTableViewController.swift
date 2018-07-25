@@ -4,9 +4,9 @@ import CoreLocation
 import GooglePlaces
 
 class WeatherTableViewController: UITableViewController {
-    var getWeatherDB = WeatherForecast()
-    let refresh = UIRefreshControl()
-    let locationManager = CLLocationManager()
+    private var getWeatherDB = WeatherForecast()
+    private let refresh = UIRefreshControl()
+    private let locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,27 +17,26 @@ class WeatherTableViewController: UITableViewController {
         self.refresh.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         self.view.addSubview(refresh)
         checkData()
-        self.title = "\("WeatherApp")"
     }
-
-    @objc func refreshData() {
-         locationManager.requestLocation()
-            checkData()
-            tableView.reloadData()
-            refresh.endRefreshing()
+    
+    @objc private func refreshData() {
+        locationManager.requestLocation()
+        checkData()
+        tableView.reloadData()
+        refresh.endRefreshing()
     }
-    func checkData() {
+    private func checkData() {
         let results = getDBApi(lat: UserDefaults.standard.double(forKey: "lat"),
                                long: UserDefaults.standard.double(forKey: "long"))
-        if results == nil {
+        if results?.isEmpty ?? true {
             alertClose()
         } else if let resultFirst = (results?.first) {
             getWeatherDB = resultFirst
-        
+            
         }
     }
     
-    func alertClose() {
+    private func alertClose() {
         let alert = UIAlertController(title: "Error", message: "No connection to the internet", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "Try again", style: .cancel) { (_) in
             self.refreshData()
@@ -47,9 +46,7 @@ class WeatherTableViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return getWeatherDB.list.count
     }
     
@@ -60,37 +57,29 @@ class WeatherTableViewController: UITableViewController {
             return 74.0
         }
     }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellGetWeatherDB = getWeatherDB.list[indexPath.row]
-        let date = Date(timeIntervalSince1970: TimeInterval(cellGetWeatherDB.dateWeather))
-        let dateFormatter = DateFormatter()
-        let dayOfWeek = DateFormatter()
-        dayOfWeek.dateFormat = "EEEE"
-        dateFormatter.setLocalizedDateFormatFromTemplate("MMMMd")
-        
         if indexPath.row == 0, let cell = tableView.dequeueReusableCell(withIdentifier: "firstCell",
                                                                         for: indexPath) as? TableViewCell {
-            cell.cityLabel.text = "\( getWeatherDB.city?.name ?? "")"
-            cell.dateWeather.text = "\(dayOfWeek.string(from: date))\n\(dateFormatter.string(from: date))"
-            cell.desc.text = "\(cellGetWeatherDB.desc)"
-            cell.maxTemp.text = String(format: "%.0f", cellGetWeatherDB.max - 273.15)
-            cell.minTemp.text = String(format: "%.0f", cellGetWeatherDB.min - 273.15)
-            cell.imageWeather.image = UIImage(named: "\(cellGetWeatherDB.icon)")
+            cell.setDataWeather(city: "\( getWeatherDB.city?.name ?? "")",
+                dateWeather: "\(Utils.dayOfWeeks(date: cellGetWeatherDB.dateWeather, separateDataAndDay: true ))",
+                maxTemp: Utils.temperatureFormatter(kelvinTemp: cellGetWeatherDB.max),
+                minTemp: Utils.temperatureFormatter(kelvinTemp: cellGetWeatherDB.min),
+                desc: "\(cellGetWeatherDB.desc)")
+            cell.seImageWeather(imageWeather: "\(cellGetWeatherDB.icon)")
             cell.backgroundColor = .clear
             return cell
             
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",
                                                            for: indexPath)
             as? SecondTableViewCell {
-            cell.secondDate.text = "\(dayOfWeek.string(from: date)), \(dateFormatter.string(from: date))"
-            cell.secondDesc.text = "\(cellGetWeatherDB.desc)"
-            cell.secondMax.text = String(format: "%.0f", cellGetWeatherDB.max - 273.15)
-            cell.secondMin.text = String(format: "%.0f", cellGetWeatherDB.min - 273.15)
-            cell.secondImage.image = UIImage(named: "\(cellGetWeatherDB.icon)")
+            cell.setDataWeather(secondImage: "\(cellGetWeatherDB.icon)",
+                secondDate: "\(Utils.dayOfWeeks(date: cellGetWeatherDB.dateWeather))",
+                secondMax: Utils.temperatureFormatter(kelvinTemp: cellGetWeatherDB.max),
+                secondMin: Utils.temperatureFormatter(kelvinTemp: cellGetWeatherDB.min),
+                secondDesc: "\(cellGetWeatherDB.desc)")
             cell.backgroundColor = UIColor(white: 1, alpha: 0.7)
-        
             return cell
         }
         return UITableViewCell()
@@ -98,22 +87,27 @@ class WeatherTableViewController: UITableViewController {
     
     var selectedRoW = Weather()
     
+    func animationTransition() {
+        let transition = CATransition()
+        transition.duration = 0.45
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        transition.type = kCATransitionMoveIn
+        transition.subtype = kCATransitionFromRight
+        self.navigationController?.view.layer.add(transition, forKey: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRoW = getWeatherDB.list[indexPath.row]
-        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
         performSegue(withIdentifier: "infoVC", sender: self)
-        
+        animationTransition()
     }
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
         if segue.identifier == "infoVC" {
             (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
         }
     }
+    
     func getDBApi(lat: Double, long: Double) -> Results<WeatherForecast>? {
         if Reachability.isConnectedToNetwork() {
             let getApiWeather =
@@ -121,18 +115,17 @@ class WeatherTableViewController: UITableViewController {
             DBManager.addDB(object: getApiWeather)
         }
         let results = DBManager.getWeatherForecastByCity(lat: lat, long: long)
-        
         return results
-        
     }
+    
     @IBAction func findeCityButton(_ sender: Any) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
-     
+        
     }
     
-    func setImageBackground() {
+    private  func setImageBackground() {
         let backgraundImage = UIImage(named: "1")
         let imageView = UIImageView(image: backgraundImage)
         self.tableView.backgroundView = imageView
@@ -142,10 +135,10 @@ class WeatherTableViewController: UITableViewController {
 extension WeatherTableViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let lat = locations.last?.coordinate.latitude,
-        let long = locations.last?.coordinate.longitude {
-        UserDefaults.standard.set(lat, forKey: "lat")
-        UserDefaults.standard.set(long, forKey: "long")
-           
+            let long = locations.last?.coordinate.longitude {
+            UserDefaults.standard.set(lat, forKey: "lat")
+            UserDefaults.standard.set(long, forKey: "long")
+            print(" \(UserDefaults.standard.set(lat, forKey: "lat"))\(UserDefaults.standard.set(long, forKey: "long"))")
         } else {
             print("No coordinates")
         }
@@ -156,35 +149,25 @@ extension WeatherTableViewController: CLLocationManagerDelegate {
 }
 extension WeatherTableViewController: GMSAutocompleteViewControllerDelegate {
     
-    // Handle the user's selection.
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        print("Place name: \(place.name)")
-//        print("Place address: \(place.formattedAddress)")
-//        print("Place attributions: \(place.attributions)")
-        print("\(place.coordinate.latitude) \(place.coordinate.latitude)")
-       let findeCity = getDBApi(lat: place.coordinate.latitude, long: place.coordinate.longitude)
+        let findeCity = getDBApi(lat: place.coordinate.latitude, long: place.coordinate.longitude)
         let results = findeCity
         if results == nil {
             alertClose()
         } else if let resultFirst = (results?.first) {
             getWeatherDB = resultFirst
-            
         }
         tableView.reloadData()
         dismiss(animated: true, completion: nil)
-       
+        
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print("Error: ", error.localizedDescription)
     }
-    
-    // User canceled the operation.
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         dismiss(animated: true, completion: nil)
     }
-    
-    // Turn the network activity indicator on and off again.
     func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
