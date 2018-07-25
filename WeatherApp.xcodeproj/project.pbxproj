@@ -154,8 +154,6 @@
 				04546C9720CBC974003D41C4 /* AppDelegate.swift */,
 				04496C6F20E53F230054EBED /* InfoViewController.swift */,
 				04DA2E2920E372970017E2E5 /* WeatherTableViewController.swift */,
-				042EFB0220DBB472003B7A10 /* ApiWeather.swift */,
-				042A89A420E1155A0090861A /* DBManager.swift */,
 				04DA2E3D20E3DD1E0017E2E5 /* TableViewCell.swift */,
 				04DA2E3F20E3DEA30017E2E5 /* SecondTableViewCell.swift */,
 				A60DB067E51EC70450B1DCF2 /* Frameworks */,
@@ -190,6 +188,8 @@
 		04546C9620CBC974003D41C4 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				04A23B202108B187008A2705 /* DataBase */,
+				04A23B1F2108B16D008A2705 /* Api */,
 				046DC79C21077E84006B31D4 /* Utils */,
 				042EFB0420DBBD48003B7A10 /* Model */,
 				042EFB1020DBEBA0003B7A10 /* View */,
@@ -225,6 +225,22 @@
 				04E66F0020F35F83007A0F88 /* ReachabilityManager.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		04A23B1F2108B16D008A2705 /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				042EFB0220DBB472003B7A10 /* ApiWeather.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
+		04A23B202108B187008A2705 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				042A89A420E1155A0090861A /* DBManager.swift */,
+			);
+			path = DataBase;
 			sourceTree = "<group>";
 		};
 		0E82EBD39503B47651FB6CC2 /* Frameworks */ = {
@@ -705,6 +721,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DDCD472D02D067BF07A7680 /* Pods-WeatherApp.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -723,6 +740,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 794D3A18F42FA4122824FE8D /* Pods-WeatherApp.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
