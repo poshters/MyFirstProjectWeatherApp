@@ -11,7 +11,7 @@ class Weather: Object, Decodable {
     @objc dynamic var humidity: Int = 0
 	@objc dynamic var speed: Double = 0.0
 	@objc dynamic var deg: Double = 0.0
-    @objc dynamic var min: Double = 0.0
+    @objc dynamic var min: Double = 0.00
     @objc dynamic var max: Double = 0.0
     
     override static func primaryKey() -> String? {
