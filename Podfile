@@ -6,7 +6,6 @@ target 'WeatherApp' do
   use_frameworks!
   # Pods for WeatherApp
     pod ‘RealmSwift’
-    pod ‘ReachabilitySwift’,‘~> 3’ 
    pod 'GooglePlaces'
    pod 'GooglePlacePicker'
    pod 'GoogleMaps'  
