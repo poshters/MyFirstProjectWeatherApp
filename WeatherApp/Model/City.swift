@@ -1,5 +1,4 @@
 import Foundation
-import Foundation
 import RealmSwift
 
 class City: Object, Decodable {
@@ -31,7 +30,7 @@ class City: Object, Decodable {
 
 class Coord: Object, Decodable {
     @objc dynamic var realmId = UUID().uuidString
-    @objc dynamic var  lat: Double = 0.0
+    @objc dynamic var lat: Double = 0.0
     @objc dynamic var lon: Double = 0.0
     
     private enum CodingKeys: String, CodingKey {
@@ -54,4 +53,5 @@ class Coord: Object, Decodable {
     override static func primaryKey() -> String? {
         return "realmId"
     }
+    
 }
