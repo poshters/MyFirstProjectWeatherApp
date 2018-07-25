@@ -17,6 +17,7 @@ class WeatherTableViewController: UITableViewController {
         self.refresh.addTarget(self, action: #selector(refreshData), for: .valueChanged)
         self.view.addSubview(refresh)
         checkData()
+        navigationController?.title = "WeatherApp"
     }
     
     @objc private func refreshData() {
