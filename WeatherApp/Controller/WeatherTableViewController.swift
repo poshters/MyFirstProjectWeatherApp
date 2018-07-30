@@ -7,7 +7,7 @@ class WeatherTableViewController: UITableViewController {
     private var getWeatherDB = WeatherForecast()
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
-    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -18,7 +18,13 @@ class WeatherTableViewController: UITableViewController {
         self.view.addSubview(refresh)
         self.navigationItem.title = "WeatherApp"
         checkData()
-        
+        Utils.sheduleNotification(title: "\(getWeatherDB.city?.name ?? "")",
+                                subtitle: "\(getWeatherDB.list[0].desc)", body: """
+            hight:\(Utils.temperatureFormatter(kelvinTemp: getWeatherDB.list[0].max)),
+            low:\(Utils.temperatureFormatter(kelvinTemp: getWeatherDB.list[0].min))
+            """
+        )
+       
     }
     
     @objc private func refreshData() {
