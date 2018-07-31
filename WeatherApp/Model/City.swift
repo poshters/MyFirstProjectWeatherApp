@@ -23,7 +23,6 @@ class City: Object, Decodable {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         let name = try values.decode(String.self, forKey: .name)
         let coord = try values.decode(Coord.self, forKey: .coord)
-        
         self.init(name: name, coord: coord)
     }
 }

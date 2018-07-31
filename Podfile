@@ -9,7 +9,6 @@ target 'WeatherApp' do
    pod 'GooglePlaces'
    pod 'GooglePlacePicker'
    pod 'GoogleMaps'  
-	pod 'SwiftLint'
  target 'WeatherAppTests' do
     inherit! :search_paths
     # Pods for testing

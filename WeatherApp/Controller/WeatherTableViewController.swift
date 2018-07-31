@@ -7,7 +7,7 @@ class WeatherTableViewController: UITableViewController {
     private var getWeatherDB = WeatherForecast()
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -24,7 +24,6 @@ class WeatherTableViewController: UITableViewController {
             low:\(Utils.temperatureFormatter(kelvinTemp: getWeatherDB.list[0].min))
             """
         )
-       
     }
     
     @objc private func refreshData() {

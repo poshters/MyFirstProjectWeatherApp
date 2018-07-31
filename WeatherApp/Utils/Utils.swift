@@ -30,8 +30,8 @@ class Utils {
         content.sound = UNNotificationSound.default()
     
         var dateComponents = DateComponents()
-        dateComponents.hour = 10
-        dateComponents.minute = 00
+        dateComponents.hour = 09
+        dateComponents.minute = 21
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
         let request = UNNotificationRequest(identifier: notificationIdentifier, content: content, trigger: trigger)
         let center = UNUserNotificationCenter.current()
