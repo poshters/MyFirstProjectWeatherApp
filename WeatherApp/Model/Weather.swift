@@ -13,13 +13,13 @@ class Weather: Object, Decodable {
 	@objc dynamic var deg: Double = 0.0
     @objc dynamic var min: Double = 0.0
     @objc dynamic var max: Double = 0.0
-    
+
     override static func primaryKey() -> String? {
         return "realmId"
     }
-    
+
     private enum CodingKeys: String, CodingKey {
-        
+
         case dateWeather = "dt"
         case temp = "temp"
         case pressure = "pressure"
@@ -29,12 +29,12 @@ class Weather: Object, Decodable {
         case deg = "deg"
         case clouds = "clouds"
         case desc = "description"
-        
+
     }
     required init(value: Any, schema: RLMSchema) {
         super.init(value: value, schema: schema)
     }
-    
+
     required init(realm: RLMRealm, schema: RLMObjectSchema) {
         super.init(realm: realm, schema: schema)
     }
@@ -51,7 +51,7 @@ class Weather: Object, Decodable {
         self.min = min
         self.max = max
     }
-    
+
     convenience required init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     let dateWeather = try values.decode(Int.self, forKey: .dateWeather)
@@ -65,7 +65,7 @@ class Weather: Object, Decodable {
     let icon = temporary[0].icon
     let speed = try values.decode(Double.self, forKey: .speed)
     let deg = try values.decode(Double.self, forKey: .deg)
-        
+
         self.init( desc: desc, icon: icon, dateWeather: dateWeather, pressure: pressure,
                  humidity: humidity, speed: speed, deg: deg, min: min, max: max)
     }
@@ -77,12 +77,12 @@ class Weather: Object, Decodable {
 class Temporary: Decodable {
     @objc dynamic var desc: String = ""
     @objc dynamic var icon: String = ""
-    
+
    private enum CodingKeys: String, CodingKey {
         case desc = "description"
         case icon = "icon"
     }
-    
+
 }
 class Temp: Decodable {
     @objc dynamic var min: Double = 0.0

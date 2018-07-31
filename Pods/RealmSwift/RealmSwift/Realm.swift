@@ -391,7 +391,7 @@ public final class Realm {
         if update && schema[typeName]?.primaryKeyProperty == nil {
             throwRealmException("'\(typeName)' does not have a primary key and can not be updated")
         }
-        return noWarnUnsafeBitCast(RLMCreateObjectInRealmWithValue(rlmRealm, typeName, value, update),
+        return noWarnUnsafeBitCast(x: RLMCreateObjectInRealmWithValue(rlmRealm, typeName, value, update),
                                    to: DynamicObject.self)
     }
 

@@ -27,7 +27,7 @@ import RealmSwift
 
 // Swift 3.1 provides fixits for some of our uses of unsafeBitCast
 // to use unsafeDowncast instead, but the bitcast is required.
-internal func noWarnUnsafeBitCast<T, U>(_ x: T, to type: U.Type) -> U {
+internal func noWarnUnsafeBitCast<T, U>(x: T, to type: U.Type) -> U {
     return unsafeBitCast(x, to: type)
 }
 

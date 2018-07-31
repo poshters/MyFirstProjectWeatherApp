@@ -1,5 +1,14 @@
 PODS:
-  - ReachabilitySwift (4.1.0)
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
+  - GooglePlacePicker (2.7.0):
+    - GoogleMaps (= 2.7.0)
+    - GooglePlaces (= 2.7.0)
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
   - Realm (3.5.0):
     - Realm/Headers (= 3.5.0)
   - Realm/Headers (3.5.0)
@@ -7,20 +16,26 @@ PODS:
     - Realm (= 3.5.0)
 
 DEPENDENCIES:
-  - ReachabilitySwift
+  - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
   - RealmSwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - ReachabilitySwift
+    - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
     - Realm
     - RealmSwift
 
 SPEC CHECKSUMS:
-  ReachabilitySwift: 6849231cd4e06559f3b9ef4a97a0a0f96d41e09f
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlacePicker: 59ea44db173c58486ad6123993e81feefcbce9c3
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   Realm: 0378021c424e4e2bd6a0e63b27881e929d9b9ad1
   RealmSwift: 3322562622fda2ad596985ead4d8d8be30cf838c
 
-PODFILE CHECKSUM: 7cb089e506cb851a1b8a0eea26d508172ae59c07
+PODFILE CHECKSUM: 1e932f5172b8f18224005bd0e7ee804b94007118
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.5.3

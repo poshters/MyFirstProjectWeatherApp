@@ -6,22 +6,22 @@ class WeatherForecast: Object, Decodable {
     @objc dynamic var realmId = UUID().uuidString
     @objc dynamic var city: City?
     var list = List<Weather>()
-    
+
     override static func primaryKey() -> String? {
         return "realmId"
     }
-    
+
     private enum CodingKeys: String, CodingKey {
         case city
-        case list 
+        case list
     }
-    
+
     convenience init(city: City, list: List<Weather>) {
         self.init()
         self.city = city
         self.list = list
     }
-    
+
     convenience required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let city = try container.decode(City.self, forKey: .city)
@@ -30,15 +30,15 @@ class WeatherForecast: Object, Decodable {
         listTemp.append(objectsIn: listArray)
         self.init(city: city, list: listTemp)
     }
-    
+
     required init() {
         super.init()
     }
-    
+
     required init(value: Any, schema: RLMSchema) {
         super.init(value: value, schema: schema)
     }
-    
+
     required init(realm: RLMRealm, schema: RLMObjectSchema) {
         super.init(realm: realm, schema: schema)
     }

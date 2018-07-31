@@ -5,7 +5,7 @@ class InfoViewController: UIViewController {
     private let dateFormatter = DateFormatter()
     private let dayOfWeek = DateFormatter()
     var selectedRow = Weather()
-   
+
     @IBOutlet private weak var dayLabel: UILabel!
     @IBOutlet private weak var maxTempLabel: UILabel!
     @IBOutlet private weak var minTempLabel: UILabel!
@@ -14,14 +14,14 @@ class InfoViewController: UIViewController {
     @IBOutlet private weak var pressureLabel: UILabel!
     @IBOutlet private weak var windLabel: UILabel!
     @IBOutlet private weak var iconImage: UIImageView!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
       view.clipsToBounds = true
         setImageBackground()
         setInfoWether()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 }
@@ -36,7 +36,7 @@ class InfoViewController: UIViewController {
         windLabel.text = "Wind: \(Int(selectedRow.speed)) km/h"
         iconImage.image = UIImage(named: selectedRow.icon)
 }
-    
+
    private func setImageBackground() {
         let backgroundImage = UIImageView(image: UIImage(named: "1"))
         backgroundImage.contentMode = UIViewContentMode.scaleAspectFill

@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import UserNotifications
 class Utils {
-    
+
     static  func temperatureFormatter(kelvinTemp: Double) -> String {
         let formatter = MeasurementFormatter()
         formatter.locale = Locale.init(identifier: "it_IT")
@@ -10,7 +10,7 @@ class Utils {
         let temperature = Measurement(value: kelvinTemp, unit: UnitTemperature.kelvin)
         return (String(format: "%@", formatter.string(from: temperature)))
     }
-    
+
    static func dayOfWeeks(date: Int, separateDataAndDay: Bool = false ) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(date))
         let dateFormatter = DateFormatter()
@@ -28,7 +28,7 @@ class Utils {
         content.subtitle = subtitle
         content.body = body
         content.sound = UNNotificationSound.default()
-    
+
         var dateComponents = DateComponents()
         dateComponents.hour = 09
         dateComponents.minute = 21

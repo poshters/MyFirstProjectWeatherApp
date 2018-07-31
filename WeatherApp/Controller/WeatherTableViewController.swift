@@ -7,7 +7,7 @@ class WeatherTableViewController: UITableViewController {
     private var getWeatherDB = WeatherForecast()
     private let refresh = UIRefreshControl()
     private let locationManager = CLLocationManager()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.delegate = self
@@ -25,7 +25,7 @@ class WeatherTableViewController: UITableViewController {
             """
         )
     }
-    
+
     @objc private func refreshData() {
         locationManager.requestLocation()
         checkData()
@@ -39,10 +39,10 @@ class WeatherTableViewController: UITableViewController {
             alertClose()
         } else if let resultFirst = (results?.first) {
             getWeatherDB = resultFirst
-            
+
         }
     }
-    
+
     private func alertClose() {
         let alert = UIAlertController(title: "Error", message: "No connection to the internet", preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "Try again", style: .cancel) { (_) in
@@ -51,12 +51,12 @@ class WeatherTableViewController: UITableViewController {
         alert.addAction(alertAction)
         self.present(alert, animated: true, completion: nil)
     }
-    
+
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return getWeatherDB.list.count
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 240.0
@@ -65,7 +65,7 @@ class WeatherTableViewController: UITableViewController {
         }
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let cellGetWeatherDB = getWeatherDB.list[indexPath.row]
         if indexPath.row == 0, let cell = tableView.dequeueReusableCell(withIdentifier: "firstCell",
                                                                         for: indexPath) as? TableViewCell {
@@ -77,7 +77,7 @@ class WeatherTableViewController: UITableViewController {
             cell.seImageWeather(imageWeather: "\(cellGetWeatherDB.icon)")
             cell.backgroundColor = .clear
             return cell
-            
+
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: "Cell",
                                                            for: indexPath)
             as? SecondTableViewCell {
@@ -91,9 +91,9 @@ class WeatherTableViewController: UITableViewController {
         }
         return UITableViewCell()
     }
-    
+
     var selectedRoW = Weather()
-    
+
     func animationTransition() {
         let transition = CATransition()
         transition.duration = 0.45
@@ -102,7 +102,7 @@ class WeatherTableViewController: UITableViewController {
         transition.subtype = kCATransitionFromRight
         self.navigationController?.view.layer.add(transition, forKey: nil)
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRoW = getWeatherDB.list[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: false)
@@ -114,7 +114,7 @@ class WeatherTableViewController: UITableViewController {
             (segue.destination as? InfoViewController)?.selectedRow = selectedRoW
         }
     }
-    
+
     func getDBApi(lat: Double, long: Double) -> Results<WeatherForecast>? {
         if Reachability.isConnectedToNetwork() {
             let getApiWeather =
@@ -124,14 +124,14 @@ class WeatherTableViewController: UITableViewController {
         let results = DBManager.getWeatherForecastByCity(lat: lat, long: long)
         return results
     }
-    
+
     @IBAction func findeCityButton(_ sender: Any) {
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
-        
+
     }
-    
+
     private  func setImageBackground() {
         let backgraundImage = UIImage(named: "1")
         let imageView = UIImageView(image: backgraundImage)
@@ -155,7 +155,7 @@ extension WeatherTableViewController: CLLocationManagerDelegate {
     }
 }
 extension WeatherTableViewController: GMSAutocompleteViewControllerDelegate {
-    
+
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         let findeCity = getDBApi(lat: place.coordinate.latitude, long: place.coordinate.longitude)
         let results = findeCity
@@ -166,9 +166,9 @@ extension WeatherTableViewController: GMSAutocompleteViewControllerDelegate {
         }
         tableView.reloadData()
         dismiss(animated: true, completion: nil)
-        
+
     }
-    
+
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print("Error: ", error.localizedDescription)
     }
@@ -178,9 +178,9 @@ extension WeatherTableViewController: GMSAutocompleteViewControllerDelegate {
     func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
-    
+
     func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
-    
+
 }
